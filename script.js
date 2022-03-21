@@ -98,17 +98,15 @@ class App {
         const multiplier = [2, 1, 2, 1, 2, 1, 2, 1, 2];
         let checksum = 10;
         let vatStub = "";
-        while (checksum === 10) {
-            const stub = Array.from({ length: multiplier.length }, () => this.#generateDigit());
-            vatStub = stub.join("");;
-            const temp = new Array(multiplier.length);
-            for (let i = 0; i < multiplier.length; i++) {
-                temp[i] = stub[i] * multiplier[i];
-            }
-            const temp2 = temp.map((i) => i > 9 ? i % 10 + 1 : i);
-            const sum = temp2.reduce((prev, curr) => prev + curr, 0);
-            checksum = sum % 10 === 0 ? 0 : 10 - (sum % 10);
+        const stub = Array.from({ length: multiplier.length }, () => this.#generateDigit());
+        vatStub = stub.join("");;
+        const temp = new Array(multiplier.length);
+        for (let i = 0; i < multiplier.length; i++) {
+            temp[i] = stub[i] * multiplier[i];
         }
+        const temp2 = temp.map((i) => i > 9 ? i % 10 + 1 : i);
+        const sum = temp2.reduce((prev, curr) => prev + curr, 0);
+        checksum = sum % 10 === 0 ? 0 : 10 - (sum % 10);
         txtSweden.textContent = vatStub + checksum + '01';
     }
 }
